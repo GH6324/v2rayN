@@ -269,6 +269,7 @@ public partial class CoreConfigSingboxService
                         .Select(s => s.Replace("\r\n", "\n"))
                         .ToList() ?? new();
                     tls.certificate = certs.Count > 0 ? certs : null;
+                    tls.insecure = false;
                 }
                 else
                 {
@@ -679,7 +680,10 @@ public partial class CoreConfigSingboxService
         {
             var node = nodes[i];
             if (node == null)
+            {
                 continue;
+            }
+
             if (node.ConfigType.IsGroupType())
             {
                 var (childProfiles, profileGroupItem) = await ProfileGroupItemManager.GetChildProfileItems(node.IndexId);

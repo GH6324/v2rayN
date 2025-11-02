@@ -298,6 +298,7 @@ public partial class CoreConfigV2rayService
                     }
                     tlsSettings.certificates = certsettings;
                     tlsSettings.disableSystemRoot = true;
+                    tlsSettings.allowInsecure = false;
                 }
                 streamSettings.tlsSettings = tlsSettings;
             }
@@ -803,7 +804,10 @@ public partial class CoreConfigV2rayService
         {
             var node = nodes[i];
             if (node == null)
+            {
                 continue;
+            }
+
             if (node.ConfigType.IsGroupType())
             {
                 var (childProfiles, _) = await ProfileGroupItemManager.GetChildProfileItems(node.IndexId);
